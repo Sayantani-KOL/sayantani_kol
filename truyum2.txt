@@ -1,0 +1,54 @@
+create table Menu_items 
+
+(menu_id int not null primary key,
+
+price varchar(10),
+
+menuname varchar(20),
+
+active varchar(10),
+
+dates_of_launch varchar(20)
+);
+
+insert into Menu_items values(1,'Rs99','sandwich','yes','15/03/2017'),(2,'Rs129','burger','yes','23/12/2017'),(3,'Rs149','pizza','yes','21/08/2017'),(4,'Rs57','frenchfries','no','02/07/2017'),(5,'Rs32','brownie','yes','02/11/2022');
+
+select * from Menu_items;
+
+
+select * from Menu_items where menu_id=3;
+update Menu_items set price='Rs99' where menu_id=3;
+
+select * from Menu_items;
+
+create table users(
+
+user_id int not null auto_increment primary key,
+name varchar(20)
+);
+create table cart(
+id int not null auto_increment primary key,
+menu_id int not null,
+
+user_id int not null,
+foreign key(menu_id) references menu_item(Id),
+
+foreign key(user_id) references menu_item(Id)
+);
+
+
+insert into users values('u1','admin');
+insert into users values('u2','customer');
+
+insert into cart values('c1','u2','i1');
+insert into cart values('c2','u2','i5');
+insert into cart values('c3','u2','i4');
+insert into cart values('c4','u2','i2');
+
+use truyum;
+select * from menu where date_of_launch<now() and 'active_status'='yes';
+select item_name from menu where item_id='i4';
+update menu set item_name='Biriyani'where item_id='i2';
+select m.item_name from menu m inner join cart c on m.item_id=c.item_id;
+select sum(m.price) from menu m inner join cart c on m.item_id = c.item_id;
+delete from cart where item_id='i4';
